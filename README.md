@@ -1,4 +1,2 @@
 # mosaic
-Drupal 7.x custom module to display the latest products available
-
-Author: Lara Ferrighi, laraf@met.no
+Drupal tool for displaying the products of the latest 24hrs on OL3
