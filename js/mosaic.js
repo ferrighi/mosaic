@@ -129,6 +129,10 @@ map.on('pointermove', function(evt) {
 });
 }
 
+function id_tooltip_clear(){
+        document.getElementById('tooltip').style.display = 'none';
+}
+
 //define times for time control
 var today = new Date();
 var tda = new Date();
@@ -180,6 +184,8 @@ function Q1(){
 document.getElementById('Q2-tab').classList.remove('active');
 document.getElementById('Q3-tab').classList.remove('active');
 document.getElementById('Q1-tab').classList.add('active');
+
+id_tooltip_clear()
 
 map.setView(new ol.View({center: centerTrans1,
                          extent: ol.proj.transformExtent(Q1_ext, "EPSG:4326", prj), 
@@ -291,6 +297,8 @@ document.getElementById('Q1-tab').classList.remove('active');
 document.getElementById('Q3-tab').classList.remove('active');
 document.getElementById('Q2-tab').classList.add('active');
 
+id_tooltip_clear()
+
 map.setView(new ol.View({center: centerTrans2,
                          minZoom: 4,
                          maxZoom: 6,
@@ -392,6 +400,8 @@ function Q3(){
 document.getElementById('Q1-tab').classList.remove('active');
 document.getElementById('Q2-tab').classList.remove('active');
 document.getElementById('Q3-tab').classList.add('active');
+
+id_tooltip_clear()
 
 map.setView(new ol.View({center: centerTrans3,
                          minZoom: 4,
