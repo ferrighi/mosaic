@@ -7,11 +7,13 @@ ol.proj.addProjection(proj32661);
 
 var ext = ex32661;
 var prj = proj32661;
+var defzoom = 4;
 
 // Import variables from php: array(address, id, layers)
 var prinfoQ1 = Drupal.settings.prinfoQ1;
 var prinfoQ2 = Drupal.settings.prinfoQ2;
 var prinfoQ3 = Drupal.settings.prinfoQ3;
+var envelops = Drupal.settings.envelops;
 
 // Define all layers
 var layer = {};
@@ -29,13 +31,13 @@ layer['base']  = new ol.layer.Tile({
 });
 
 // Border layer WMS
-layer['border']  = new ol.layer.Tile({
-   title: 'border',
-   source: new ol.source.TileWMS({ 
-       url: 'http://public-wms.met.no/backgroundmaps/northpole.map',
-       params: {'LAYERS': 'borders', 'TRANSPARENT':'true', 'VERSION':'1.1.1','FORMAT':'image/png', 'SRS':prj}
-   })
-});
+//layer['border']  = new ol.layer.Tile({
+//   title: 'border',
+//   source: new ol.source.TileWMS({ 
+//       url: 'http://public-wms.met.no/backgroundmaps/northpole.map',
+//       params: {'LAYERS': 'borders', 'TRANSPARENT':'true', 'VERSION':'1.1.1','FORMAT':'image/png', 'SRS':prj}
+//   })
+//});
 
 // build up the map 
 var centerLonLat1 = [15, 80];
@@ -45,6 +47,10 @@ var centerTrans2 = ol.proj.transform(centerLonLat2, "EPSG:4326",  prj);
 var centerLonLat3 = [15, 60];
 var centerTrans3 = ol.proj.transform(centerLonLat3, "EPSG:4326",  prj);
 
+// define exents: (minx, miny, maxx, maxy)
+var Q1_ext = [envelops[0][0], envelops[0][3], envelops[0][1], envelops[0][2]];
+var Q2_ext = [envelops[1][0], envelops[1][3], envelops[1][1], envelops[1][2]]
+var Q3_ext = [envelops[2][0], envelops[2][3], envelops[2][1], envelops[2][2]]
 
 var map = new ol.Map({
    controls: ol.control.defaults().extend([
@@ -59,7 +65,7 @@ var map = new ol.Map({
                  maxZoom: 6,
                  center: centerTrans1,
                  projection: prj,
-                 extent: ext
+                 extent: ol.proj.transformExtent(Q1_ext, "EPSG:4326", prj)
    })
 });
 
@@ -110,26 +116,19 @@ map.on('click', function(evt) {
 // clickable ID in tooltop
 function id_tooltip(){
 var tooltip = document.getElementById('tooltip');
-//var overlay = new ol.Overlay({
-//  element: tooltip,
-//});
 
-//map.addOverlay(overlay);
-function displayTooltip(evt) {
+map.on('pointermove', function(evt) {
   var first = true;
   map.forEachLayerAtPixel(evt.pixel, function(layer) {
-     if (layer.get('title') != 'base' && first){
+     if(layer.get('title') != 'base' && first){
         tooltip.style.display = '';
-        //overlay.setPosition(evt.coordinate);
         tooltip.innerHTML = 'Get Metadata: <a target="_blank" href=\"https://satellittdata.no/metsis/display/metadata/?core=l1&datasetID='+layer.get('title')+'\">'+layer.get('title')+'</a>';
         first = false;
      }
   });
-};
-
-map.on('pointermove', displayTooltip);
-
+});
 }
+
 //define times for time control
 var today = new Date();
 var tda = new Date();
@@ -182,7 +181,13 @@ document.getElementById('Q2-tab').classList.remove('active');
 document.getElementById('Q3-tab').classList.remove('active');
 document.getElementById('Q1-tab').classList.add('active');
 
-map.getView().setCenter(centerTrans1);
+map.setView(new ol.View({center: centerTrans1,
+                         extent: ol.proj.transformExtent(Q1_ext, "EPSG:4326", prj), 
+                         minZoom: 4,
+                         maxZoom: 6,
+                         projection: prj,
+                         zoom: defzoom})); 
+
 // Remove all layers that are not base
 var layersToRemove = [];
 map.getLayers().forEach(function (layer) {
@@ -208,11 +213,7 @@ for(var i12=0; i12 <= prinfoQ1.length-1; i12++){
    var maxx = ol.proj.transform([ea,so], "EPSG:4326",  prj)[0];
    var maxy = ol.proj.transform([ea,no], "EPSG:4326",  prj)[1];
    var minx = ol.proj.transform([we,no], "EPSG:4326",  prj)[0];
-   //console.log(no,so,ea,we);
-   //console.log(minx,miny,maxx,maxy);
 
-   //console.log(prinfoQ1[i12][4][0]);
-   //console.log(prinfoQ1[i12][4][1]);
    if (prinfoQ1[i12][1].includes("S2")){ 
       layer[i12] = new ol.layer.Tile({
          visible: false,
@@ -262,6 +263,9 @@ var S2_groupQ1 = new ol.layer.Group({
    layers: list_of_layers_S2_Q1
 });
 
+//should be adding the composites
+//....getLayers().forEach(function(layer) {layer.getSource().updateParams({'LAYERS': 'false_color_glacier'})})
+
 // wait for base layer to be loaded
 //layer["base"].getSource().on('tileloadend', function(event){
    map.addLayer(S1_groupQ1);
@@ -276,20 +280,23 @@ metadata_click()
 // display clickable ID in tooltip
 id_tooltip()
 
-
-
 }
 // call the map as default when loading the page. 
 Q1();
 
 function Q2(){
 
-map.getView().setCenter(centerTrans2);
-
 // Assign the active class to the tab 
 document.getElementById('Q1-tab').classList.remove('active');
 document.getElementById('Q3-tab').classList.remove('active');
 document.getElementById('Q2-tab').classList.add('active');
+
+map.setView(new ol.View({center: centerTrans2,
+                         minZoom: 4,
+                         maxZoom: 6,
+                         projection: prj,
+                         extent: ol.proj.transformExtent(Q2_ext, "EPSG:4326", prj), 
+                         zoom: defzoom})); 
 
 // Remove all layers that are not base
 var layersToRemove = [];
@@ -376,9 +383,6 @@ metadata_click()
 // display clickable ID in tooltip
 id_tooltip()
 
-map.getLayers().getArray()[2].on('tileloadend', function(event) {
-   document.getElementById("progress").style.width = '20%';
-});
 
 }
 // define map for the first tab including all S1 and S2 products of today.  
@@ -389,7 +393,13 @@ document.getElementById('Q1-tab').classList.remove('active');
 document.getElementById('Q2-tab').classList.remove('active');
 document.getElementById('Q3-tab').classList.add('active');
 
-map.getView().setCenter(centerTrans3);
+map.setView(new ol.View({center: centerTrans3,
+                         minZoom: 4,
+                         maxZoom: 6,
+                         projection: prj,
+                         extent: ol.proj.transformExtent(Q3_ext, "EPSG:4326", prj),
+                         zoom: defzoom})); 
+
 // Remove all layers that are not base
 var layersToRemove = [];
 map.getLayers().forEach(function (layer) {
@@ -476,17 +486,12 @@ metadata_click()
 // display clickable ID in tooltip
 id_tooltip()
 
-map.getLayers().getArray()[2].on('tileloadend', function(event) {
-   document.getElementById("progress").style.width = '20%';
-});
-
 }
 
 //Layer switcher
 //var lswitcher = new ol.control.LayerSwitcher({targer:$(".layerSwithcer").get(0),});
 var lswitcher = new ol.control.LayerSwitcher({});
 map.addControl(lswitcher);
-//lswitcher.showPanel();
 
 //Mouseposition
 var mousePositionControl = new ol.control.MousePosition({
