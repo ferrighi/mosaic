@@ -56,7 +56,7 @@ var map = new ol.Map({
    view: new ol.View({
                  zoom: 4, 
                  minZoom: 4,
-                 maxZoom: 13,
+                 maxZoom: 6,
                  center: centerTrans1,
                  projection: prj,
                  extent: ext
@@ -138,7 +138,7 @@ tda.setDate(tda.getDate()-3);
 // Create Timeline control 
 tline = new ol.control.Timeline({
   features: layer,
-  interval: '1h',  // 90 days = 3 month interval
+  interval: '6h',  // 90 days = 3 month interval
   graduation: 'day', // 'month'
   minDate: tda,
   maxDate: today,
@@ -318,6 +318,7 @@ for(var i12=0; i12 <= prinfoQ2.length-1; i12++){
    var minx = ol.proj.transform([we,no], "EPSG:4326",  prj)[0];
    if (prinfoQ2[i12][1].includes("S2")){ 
       layer[i12] = new ol.layer.Tile({
+         visible: false,
          title: prinfoQ2[i12][1],
          displayInLayerSwitcher: false,
          acqStart: new Date(prinfoQ2[i12][4][0]), 
@@ -336,6 +337,7 @@ for(var i12=0; i12 <= prinfoQ2.length-1; i12++){
          var lyr = 'amplitude_hh';
       }
       layer[i12] = new ol.layer.Tile({
+         visible: false,
          title: prinfoQ2[i12][1],
          displayInLayerSwitcher: false,
          acqStart: new Date(prinfoQ2[i12][4][0]), 
@@ -415,6 +417,7 @@ for(var i12=0; i12 <= prinfoQ3.length-1; i12++){
    var minx = ol.proj.transform([we,no], "EPSG:4326",  prj)[0];
    if (prinfoQ3[i12][1].includes("S2")){ 
       layer[i12] = new ol.layer.Tile({
+         visible: false,
          title: prinfoQ3[i12][1],
          displayInLayerSwitcher: false,
          acqStart: new Date(prinfoQ3[i12][4][0]), 
@@ -433,6 +436,7 @@ for(var i12=0; i12 <= prinfoQ3.length-1; i12++){
          var lyr = 'amplitude_hh';
       }
       layer[i12] = new ol.layer.Tile({
+         visible: false,
          title: prinfoQ3[i12][1],
          displayInLayerSwitcher: false,
          acqStart: new Date(prinfoQ3[i12][4][0]), 
@@ -482,7 +486,7 @@ map.getLayers().getArray()[2].on('tileloadend', function(event) {
 //var lswitcher = new ol.control.LayerSwitcher({targer:$(".layerSwithcer").get(0),});
 var lswitcher = new ol.control.LayerSwitcher({});
 map.addControl(lswitcher);
-lswitcher.showPanel();
+//lswitcher.showPanel();
 
 //Mouseposition
 var mousePositionControl = new ol.control.MousePosition({
