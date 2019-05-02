@@ -49,8 +49,8 @@ var centerTrans3 = ol.proj.transform(centerLonLat3, "EPSG:4326",  prj);
 
 // define exents: (minx, miny, maxx, maxy)
 var Q1_ext = [envelops[0][0], envelops[0][3], envelops[0][1], envelops[0][2]];
-var Q2_ext = [envelops[1][0], envelops[1][3], envelops[1][1], envelops[1][2]]
-var Q3_ext = [envelops[2][0], envelops[2][3], envelops[2][1], envelops[2][2]]
+var Q2_ext = [envelops[1][0], envelops[1][3], envelops[1][1], envelops[1][2]];
+var Q3_ext = [envelops[2][0], envelops[2][3], envelops[2][1], envelops[2][2]];
 
 var map = new ol.Map({
    controls: ol.control.defaults().extend([
