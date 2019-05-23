@@ -61,7 +61,7 @@ var map = new ol.Map({
            ],
    view: new ol.View({
                  zoom: 4, 
-                 minZoom: 4,
+                 minZoom: 3,
                  maxZoom: 6,
                  center: centerTrans1,
                  projection: prj,
@@ -121,7 +121,7 @@ map.on('pointermove', function(evt) {
   var first = true;
   map.forEachLayerAtPixel(evt.pixel, function(layer) {
      if(layer.get('title') != 'base' && first){
-        tooltip.style.display = '';
+        tooltip.style.display = 'inline-block';
         tooltip.innerHTML = 'Get Metadata: <a target="_blank" href=\"https://satellittdata.no/metsis/display/metadata/?core=l1&datasetID='+layer.get('title')+'\">'+layer.get('title')+'</a>';
         first = false;
      }
@@ -189,7 +189,7 @@ id_tooltip_clear()
 
 map.setView(new ol.View({center: centerTrans1,
                          extent: ol.proj.transformExtent(Q1_ext, "EPSG:4326", prj), 
-                         minZoom: 4,
+                         minZoom: 3,
                          maxZoom: 6,
                          projection: prj,
                          zoom: defzoom})); 
@@ -286,6 +286,13 @@ metadata_click()
 // display clickable ID in tooltip
 id_tooltip()
 
+tline.dispatchEvent({
+  type: 'scroll',
+  date: tline.getDate(),
+  dateStart: tline.getDate('start'),
+  dateEnd: tline.getDate('end')
+});
+
 }
 // call the map as default when loading the page. 
 Q1();
@@ -300,7 +307,7 @@ document.getElementById('Q2-tab').classList.add('active');
 id_tooltip_clear()
 
 map.setView(new ol.View({center: centerTrans2,
-                         minZoom: 4,
+                         minZoom: 3,
                          maxZoom: 6,
                          projection: prj,
                          extent: ol.proj.transformExtent(Q2_ext, "EPSG:4326", prj), 
@@ -391,6 +398,12 @@ metadata_click()
 // display clickable ID in tooltip
 id_tooltip()
 
+tline.dispatchEvent({
+  type: 'scroll',
+  date: tline.getDate(),
+  dateStart: tline.getDate('start'),
+  dateEnd: tline.getDate('end')
+});
 
 }
 // define map for the first tab including all S1 and S2 products of today.  
@@ -404,7 +417,7 @@ document.getElementById('Q3-tab').classList.add('active');
 id_tooltip_clear()
 
 map.setView(new ol.View({center: centerTrans3,
-                         minZoom: 4,
+                         minZoom: 3,
                          maxZoom: 6,
                          projection: prj,
                          extent: ol.proj.transformExtent(Q3_ext, "EPSG:4326", prj),
@@ -496,6 +509,12 @@ metadata_click()
 // display clickable ID in tooltip
 id_tooltip()
 
+tline.dispatchEvent({
+  type: 'scroll',
+  date: tline.getDate(),
+  dateStart: tline.getDate('start'),
+  dateEnd: tline.getDate('end')
+});
 }
 
 //Layer switcher
