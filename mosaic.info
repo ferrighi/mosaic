@@ -3,4 +3,4 @@ description = "Display latest products"
 core = 7.x
 
 scripts[] = js/mosaic.js
-files[] = css/style_selection.css
+files[] = css/mosaic_style.css

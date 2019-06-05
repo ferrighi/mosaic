@@ -3,7 +3,7 @@
 function mosaic_init(){
   $mpath = drupal_get_path('module', 'mosaic');
   drupal_add_js($mpath . '/js/mosaic.js');
-  drupal_add_css($mpath . '/css/style_selection.css');
+  drupal_add_css($mpath . '/css/mosaic_style.css');
 }
 
 
@@ -32,6 +32,7 @@ function mosaic_main_content(){
   
   $site_name = variable_get('site_name', 'Default');
   $scr_name = $base_url ."/mosaic";
+  $mpath = drupal_get_path('module', 'mosaic');
 
 // define first array with dummy values for "date, id, address, latlong" 
   $day = (new DateTime())->modify('-4 day')->format('Y-m-d\TH:i:s\Z'); //today
@@ -145,125 +146,22 @@ return '
     <link rel="stylesheet" href="https://cdn.rawgit.com/Viglino/ol-ext/master/dist/ol-ext.min.css" />
     <script type="text/javascript" src="https://cdn.rawgit.com/Viglino/ol-ext/master/dist/ol-ext.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.2.1/proj4.js"></script>
-    <style>
-.map {
-  width: 100%;
-  height: 100%;
-  margin: auto;
-}
-
-.map:-moz-full-screen {
-  height: 100%;
-}
-.map:-webkit-full-screen {
-  height: 100%;
-}
-.map:-ms-fullscreen {
-  height: 100%;
-}
-.map:fullscreen {
-  height: 100%;
-}
-
-.id-tooltip [id="tooltip"] div{
-   background-color: gainsboro;
-}
-
-
-.drop-selection {
-   height: 30px !important;
-   display: inline !important;
-   margin-right: auto;
-   margin-left: auto;
-}
-
-.ol-mouse-position {
-     top: 95%;
-     left: 2%;
-}
-
-.block-mosaic ul.primary li.active a {
-   background-color: gainsboro;
-   font-weight: bold;
-   border: 1px gainsboro solid;
-   border-bottom: unset;
-   height: 2em;
-}
-.block-mosaic ul.primary li a {
-   background-color: white;
-   border: 1px gainsboro solid;
-   border-bottom: unset;
-   height: 2em;
-}
-
-#info {
-  height: 1px;
-  width: 1px;
-  z-index: 100;
-  /*left: 200px;
-  top: 100px;*/
-}
-.popover {
-  max-width: unset;
-  left: 100px;
-  top: 100px;
-}
-.popover table tr td {
-  padding: 0 2px 0 2px;
-}
-.popover.top {
-}
-.ol-mouse-position {
-   top: 5%;
-   left: 5%;
-}
-.ol-overlay-container {
-  position: unset !important;
-}
-#tooltip {
-   font-weight: bold;
-   padding: 5px;
-}
-.progress-container {
-  width:100%;
-  height: 10px;
-  background-color: #dcdcdc;
-}
-#progress {
-  position: relative;
-  height: 10px;
-  background: -webkit-linear-gradient(left, #dcdcdc 0%, #7593b9 100%);
-  width: 0%;
-  max-width: 100%;
-  transition: width 250ms;
-}
-.ol-timeline {
-  font-size: large;
-}
-.ol-scroll {
-  height: 3em !important;
-}
-.ol-time {
-  color: black !important;
-}
-.ol-times {
-  background-color: unset !important;
-}
-.block-mosaic .ol-viewport {
-  border: 1px #bbb solid;
-}    
-    </style>
   </head>
   <body>
 
-    <ul class="tabs primary">
+    <ul class="tabs primary" id="tab-regions">
        <li class="active" id="Q1-tab" onclick="Q1()"><a >Svalbard</a></li>
        <li id="Q2-tab" onclick="Q2()"><a >Northern Norway</a></li>
        <li id="Q3-tab" onclick="Q3()"><a >Southern Norway</a></li>
     </ul>
+    <script type="text/javascript">
+    if (("'.$site_name.'").includes("sios")) {
+       document.getElementById("tab-regions").style.display="none";
+    }
+    </script>
     <div id="map" class="map">
        <div id="tooltip" style="background-color: rgba(0,0,0,0.2); font-size: small; width:100%;"></div>
-       <script type="text/javascript" src="/sites/'.$site_name.'/modules/mosaic/js/mosaic.js"></script>
+       <script type="text/javascript" src="/'.$mpath.'/js/mosaic.js"></script>
     <div class="progress-container">
       <div id="progress"></div>
     </div>

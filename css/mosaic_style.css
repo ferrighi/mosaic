@@ -1,0 +1,95 @@
+.block-mosaic .map {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.map:-moz-full-screen {
+  height: 100%;
+}
+.map:-webkit-full-screen {
+  height: 100%;
+}
+.map:-ms-fullscreen {
+  height: 100%;
+}
+.map:fullscreen {
+  height: 100%;
+}
+
+.block-mosaic .id-tooltip [id="tooltip"] div{
+   background-color: gainsboro;
+}
+
+
+.block-mosaic .drop-selection {
+   height: 30px !important;
+   display: inline !important;
+   margin-right: auto;
+   margin-left: auto;
+}
+
+.block-mosaic .ol-mouse-position {
+     top: 95%;
+     left: 2%;
+}
+
+.block-mosaic ul.primary li.active a {
+   background-color: gainsboro;
+   font-weight: bold;
+   border: 1px gainsboro solid;
+   border-bottom: unset;
+   height: 2em;
+}
+.block-mosaic ul.primary li a {
+   background-color: white;
+   border: 1px gainsboro solid;
+   border-bottom: unset;
+   height: 2em;
+}
+.block-mosaic #info {
+  height: 1px;
+  width: 1px;
+  z-index: 100;
+  /*left: 200px;
+  top: 100px;*/
+}
+.block-mosaic .ol-mouse-position {
+   top: 5%;
+   left: 5%;
+}
+.block-mosaic .ol-overlay-container {
+  position: unset !important;
+}
+.block-mosaic #tooltip {
+   font-weight: bold;
+   padding: 5px;
+}
+.block-mosaic .progress-container {
+  width:100%;
+  height: 15px;
+}
+.block-mosaic #progress {
+  position: relative;
+  height: 15px;
+  background: -webkit-linear-gradient(left, #dcdcdc 0%, #7593b9 100%);
+  width: 0%;
+  max-width: 100%;
+  transition: width 250ms;
+}
+.block-mosaic .ol-timeline {
+  font-size: large;
+}
+.block-mosaic .ol-scroll {
+  height: 3em !important;
+}
+.block-mosaic .ol-time {
+  color: black !important;
+}
+.block-mosaic .ol-times {
+  background-color: unset !important;
+}
+.block-mosaic .ol-viewport {
+  border: 1px #bbb solid;
+}
