@@ -5,16 +5,16 @@
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
-.map:-moz-full-screen {
+.block-mosaic .map:-moz-full-screen {
   height: 100%;
 }
-.map:-webkit-full-screen {
+.block-mosaic .map:-webkit-full-screen {
   height: 100%;
 }
-.map:-ms-fullscreen {
+.block-mosaic .map:-ms-fullscreen {
   height: 100%;
 }
-.map:fullscreen {
+.block-mosaic .map:fullscreen {
   height: 100%;
 }
 

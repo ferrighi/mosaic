@@ -62,7 +62,7 @@ var map = new ol.Map({
    view: new ol.View({
                  zoom: 4, 
                  minZoom: 3,
-                 maxZoom: 6,
+                 maxZoom: 7,
                  center: centerTrans1,
                  projection: prj,
                  extent: ol.proj.transformExtent(Q1_ext, "EPSG:4326", prj)
@@ -190,7 +190,7 @@ id_tooltip_clear()
 map.setView(new ol.View({center: centerTrans1,
                          extent: ol.proj.transformExtent(Q1_ext, "EPSG:4326", prj), 
                          minZoom: 3,
-                         maxZoom: 6,
+                         maxZoom: 7,
                          projection: prj,
                          zoom: defzoom})); 
 
@@ -308,7 +308,7 @@ id_tooltip_clear()
 
 map.setView(new ol.View({center: centerTrans2,
                          minZoom: 3,
-                         maxZoom: 6,
+                         maxZoom: 7,
                          projection: prj,
                          extent: ol.proj.transformExtent(Q2_ext, "EPSG:4326", prj), 
                          zoom: defzoom})); 
@@ -418,7 +418,7 @@ id_tooltip_clear()
 
 map.setView(new ol.View({center: centerTrans3,
                          minZoom: 3,
-                         maxZoom: 6,
+                         maxZoom: 7,
                          projection: prj,
                          extent: ol.proj.transformExtent(Q3_ext, "EPSG:4326", prj),
                          zoom: defzoom})); 
