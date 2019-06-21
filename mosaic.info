@@ -4,3 +4,5 @@ core = 7.x
 
 scripts[] = js/mosaic.js
 files[] = css/mosaic_style.css
+
+dependencies[] = libraries
