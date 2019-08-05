@@ -35,6 +35,13 @@
      left: 2%;
 }
 
+.block-mosaic .ol-full-screen {
+     right: .5em;
+     bottom: auto;
+     top: .5em;
+     left: auto;
+}
+
 .block-mosaic ul.primary li.active a {
    background-color: gainsboro;
    font-weight: bold;
