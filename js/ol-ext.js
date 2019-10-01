@@ -9834,7 +9834,8 @@ ol.control.Timeline.prototype._drawTime = function(div, min, max, scale) {
           style: {
             left: Math.round((d-this._minDate)*scale) - dx
           },
-          html: d.toLocaleDateString(undefined, { month: 'short'}),
+          // Lara comments out 
+          //html: d.toLocaleDateString(undefined, { month: 'short'}),
           parent: tdiv
         });
         month += dmonth;
