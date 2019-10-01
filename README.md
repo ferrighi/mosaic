@@ -1,4 +1,6 @@
-# mosaic
+## Mosaic tool
+Author: Lara Ferrighi, laraf@met.no
+
 Drupal tool for displaying the products of the latest 24hrs on OL3
 It requires to install openlayers3 (currently using Version: v3.20.1) and 
 ol3-layerswitcher (https://github.com/walkermatt/ol3-layerswitcher) under the libraries folder, 
