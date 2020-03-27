@@ -136,7 +136,7 @@ function id_tooltip_clear(){
 //define times for time control
 var today = new Date();
 var tda = new Date();
-tda.setDate(tda.getDate()-3);
+tda.setDate(tda.getDate()-7);
 
 // Create Timeline control 
 tline = new ol.control.Timeline({

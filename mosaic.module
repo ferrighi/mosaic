@@ -37,7 +37,7 @@ function mosaic_main_content(){
   $mpath = drupal_get_path('module', 'mosaic');
 
 // define first array with dummy values for "date, id, address, latlong" 
-  $day = (new DateTime())->modify('-4 day')->format('Y-m-d\TH:i:s\Z'); //today
+  $day = (new DateTime())->modify('-7 day')->format('Y-m-d\TH:i:s\Z'); //today
   //drupal_set_message(print_r($day,TRUE),'warning');
   //drupal_set_message(print_r($day,TRUE),'warning');
 
