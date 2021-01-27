@@ -66,9 +66,9 @@ function mosaic_main_content(){
   $con1 = new HttpConnection(SOLR_SERVER_IP, SOLR_SERVER_PORT);
   $con2 = new HttpConnection(SOLR_SERVER_IP, SOLR_SERVER_PORT);
   $con3 = new HttpConnection(SOLR_SERVER_IP, SOLR_SERVER_PORT);
-  $resQ1 = $con1->get('/solr/nbs-l1/select', array("q" =>$queryQ1_prd, "start" => 0, "rows" => 1000, "wt" => "json", "fl" => $fields,));
-  $resQ2 = $con2->get('/solr/nbs-l1/select', array("q" =>$queryQ2_prd, "start" => 0, "rows" => 1000, "wt" => "json", "fl" => $fields,));
-  $resQ3 = $con3->get('/solr/nbs-l1/select', array("q" =>$queryQ3_prd, "start" => 0, "rows" => 1000, "wt" => "json", "fl" => $fields,));
+  $resQ1 = $con1->get('/solr/nbs-l1/select', array("q" =>$queryQ1_prd, "start" => 0, "rows" => 1500, "wt" => "json", "fl" => $fields,));
+  $resQ2 = $con2->get('/solr/nbs-l1/select', array("q" =>$queryQ2_prd, "start" => 0, "rows" => 1500, "wt" => "json", "fl" => $fields,));
+  $resQ3 = $con3->get('/solr/nbs-l1/select', array("q" =>$queryQ3_prd, "start" => 0, "rows" => 1500, "wt" => "json", "fl" => $fields,));
   $queryQ1_res = json_decode($resQ1['body'], true);
   $queryQ2_res = json_decode($resQ2['body'], true);
   $queryQ3_res = json_decode($resQ3['body'], true);
