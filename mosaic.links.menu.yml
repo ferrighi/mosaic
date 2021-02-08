@@ -1,0 +1,13 @@
+#Define menu links here
+mosaic_tool:
+  title: 'Mosaic Tool'
+  description: 'Mosaic Tool'
+  route_name: mosaic
+  parent: mosaic.main
+  weight: 99
+
+mosaic.main:
+  title: 'Services'
+  route_name: mosaic.main
+  description: "METNO Services"
+  menu_name: main

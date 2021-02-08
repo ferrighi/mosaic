@@ -1,0 +1,15 @@
+mosaic:
+  path: '/mosaic'
+  defaults:
+    _controller: '\Drupal\mosaic\Controller\MosaicController::render'
+    _title: 'Mosaic Tool'
+  requirements:
+    _permission: 'access content'
+
+
+mosaic.main:
+  path: '#'
+  defaults:
+    _title: 'Services'
+  requirements:
+    _permission: 'access content'

@@ -1,12 +1,38 @@
 <?php
 
-function mosaic_init(){
-  $mpath = drupal_get_path('module', 'mosaic');
-  drupal_add_js($mpath . '/js/mosaic.js');
-  drupal_add_js($mpath . '/js/ol-ext.min.js');
-  drupal_add_css($mpath . '/css/mosaic_style.css');
-  drupal_add_css($mpath . '/css/ol-ext.min.css');
+use Drupal\Core\Routing\RouteMatchInterface;
+/**
+ * Implements hook_help().
+ */
+function mosaic_help($route_name, RouteMatchInterface $route_match)
+{
+    switch ($route_name) {
+    // Main module help for the metsis_search module.
+    /** TODO: Read help from module's README.md */
+    case 'help.page.mosaic':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Mosaic Tool') . '</p>';
+      return $output;
+
+    default:
+  }
 }
+
+
+// Implements hook_theme()
+function mosaic_theme( $existing, $type, $theme, $path ){
+    return [
+        'mosaic-template' => [
+            'render element' => 'container', // To render a simple container element
+            'template' => 'mosaic', // My template file name
+            'variables' => [
+                'site_name' => "Default",
+              ],
+        ],
+    ];
+}
+
 
 
 function mosaic_block_info() {
@@ -31,17 +57,17 @@ function mosaic_block_view($delta='') {
 function mosaic_main_content(){
   global $base_url;
   global $metsis_conf;
-  
+
   $site_name = variable_get('site_name', 'Default');
   $scr_name = $base_url ."/mosaic";
   $mpath = drupal_get_path('module', 'mosaic');
 
-// define first array with dummy values for "date, id, address, latlong" 
+// define first array with dummy values for "date, id, address, latlong"
   $day = (new DateTime())->modify('-7 day')->format('Y-m-d\TH:i:s\Z'); //today
   //drupal_set_message(print_r($day,TRUE),'warning');
   //drupal_set_message(print_r($day,TRUE),'warning');
 
-// Make 4 different queries depending on AREA which they will be shown switching between tabs 
+// Make 4 different queries depending on AREA which they will be shown switching between tabs
 // Q1 tllong(minx): -3.22; brlong(maxx): 55.29;  tllat(maxy): 83.21; brlat(miny): 72.70
 
   $prinfoQ1 = [];
@@ -61,7 +87,7 @@ function mosaic_main_content(){
   $queryQ2_prd = 'mmd_temporal_extent_start_date:['.$day.' TO *] AND bbox:"Intersects(ENVELOPE(5.00, 39.25, 70.84, 65.55))"';
   $queryQ3_prd = 'mmd_temporal_extent_start_date:['.$day.' TO *] AND bbox:"Intersects(ENVELOPE(-1.70, 20.42, 66.74, 56.42))"';
   $fields = "id, mmd_data_access_resource, mmd_temporal_extent_start_date, mmd_temporal_extent_end_date, mmd_geographic_extent_rectangle_north, mmd_geographic_extent_rectangle_south, mmd_geographic_extent_rectangle_east, mmd_geographic_extent_rectangle_west, mmd_data_access_wms_layers_wms_layer";
-   
+
   // Define connection to SolR and results of the query
   $con1 = new HttpConnection(SOLR_SERVER_IP, SOLR_SERVER_PORT);
   $con2 = new HttpConnection(SOLR_SERVER_IP, SOLR_SERVER_PORT);
@@ -74,9 +100,9 @@ function mosaic_main_content(){
   $queryQ3_res = json_decode($resQ3['body'], true);
 
 
-  $count = 0; 
-  $count2 = 0; 
-  $count3 = 0; 
+  $count = 0;
+  $count2 = 0;
+  $count3 = 0;
   foreach ($queryQ1_res['response']['docs'] as $doc) {
      $id = $doc['id'];
      $address = $doc['mmd_data_access_resource'][1];
@@ -90,7 +116,7 @@ function mosaic_main_content(){
      $layers = $doc['mmd_data_access_wms_layers_wms_layer'];
      $latlon = array(($south+$north)/2, ($east+$west)/2);
      $prinfoQ1[$count] = array($address, $id, $layers, array($north,$south,$east,$west), array($start, $end));
-     $count = $count + 1; 
+     $count = $count + 1;
   }
   foreach ($queryQ2_res['response']['docs'] as $doc) {
      $id = $doc['id'];
@@ -105,7 +131,7 @@ function mosaic_main_content(){
      $layers = $doc['mmd_data_access_wms_layers_wms_layer'];
      $latlon = array(($south+$north)/2, ($east+$west)/2);
      $prinfoQ2[$count2] = array($address, $id, $layers, array($north,$south,$east,$west), array($start, $end));
-     $count2 = $count2 + 1; 
+     $count2 = $count2 + 1;
   }
   foreach ($queryQ3_res['response']['docs'] as $doc) {
      $id = $doc['id'];
@@ -120,22 +146,22 @@ function mosaic_main_content(){
      $layers = $doc['mmd_data_access_wms_layers_wms_layer'];
      $latlon = array(($south+$north)/2, ($east+$west)/2);
      $prinfoQ3[$count3] = array($address, $id, $layers, array($north,$south,$east,$west), array($start, $end));
-     $count3 = $count3 + 1; 
+     $count3 = $count3 + 1;
   }
 
   drupal_json_encode($prinfoQ1);
-  drupal_add_js(array('prinfoQ1' => $prinfoQ1, 
-                      'prinfoQ2' => $prinfoQ2, 
+  drupal_add_js(array('prinfoQ1' => $prinfoQ1,
+                      'prinfoQ2' => $prinfoQ2,
                       'prinfoQ3' => $prinfoQ3,
                       'envelops' => $envelops
                       ), 'setting');
-  
+
 
 return '
 
-<!doctype html>                                                                                                                                                                                                         
-<html lang="en">                                                                                                                                                                                                        
-  <head>                                                                                                                                          
+<!doctype html>
+<html lang="en">
+  <head>
     <script src="/'.drupal_get_path('module','jquery_update').'/replace/jquery/1.10/jquery.min.js"></script>
 
     <link rel="stylesheet" href="/'.libraries_get_path('openlayers3').'/css/ol.css" type="text/css">
@@ -168,7 +194,7 @@ return '
     </div>
     </div>
       <br>
-      <table style="font-size: large; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);"> 
+      <table style="font-size: large; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">
       <tr><td style="border: unset; background-color: unset; text-align: center; padding: 0.4em"><label>Acquisition Starts: </label><span class="dateStart"></span></td></tr>
       <tr><td style="border: unset; background-color: unset; text-align: center; padding: 0.4em"><label>Acquisition Ends:  </label><span class="dateEnd"></span></td></tr></table>
     <br>
