@@ -650,6 +650,7 @@ console.log("Start of mosaic map script:");
                   g.setVisible(false);
                 } else {
                   g.setVisible(true);
+                  g.getSource().refresh();
                 }
               })
             }
