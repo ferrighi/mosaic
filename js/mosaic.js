@@ -294,8 +294,10 @@ console.log("Start of mosaic map script:");
           map.addLayer(S1_groupQ1);
           map.addLayer(S2_groupQ1);
 
-          map.getView().setCenter(centerTrans1);
-          map.getView().set('extent', ol.proj.transformExtent(Q1_ext, "EPSG:4326", prj));
+          map.getView().setCenter(centerTrans1)
+          map.getView().set('extent', ol.proj.transformExtent(Q1_ext, "EPSG:4326", prj))
+          map.getView().setZoom(defzoom)
+
           progress_bar()
           //});
 
@@ -322,8 +324,7 @@ console.log("Start of mosaic map script:");
           document.getElementById('Q2-tab').classList.add('active');
 
           id_tooltip_clear()
-          map.getView().setCenter(centerTrans2);
-          map.getView().setZoom(defzoom);
+          //map.getView().setCenter(centerTrans2);
         //  map.setView(new ol.View({
           //  center: centerTrans2,
             //minZoom: 2,
@@ -445,6 +446,9 @@ console.log("Start of mosaic map script:");
 
           // display clickable ID in tooltip
           id_tooltip()
+          map.getView().setCenter(centerTrans2)
+          map.getView().set('extent', ol.proj.transformExtent(Q2_ext, "EPSG:4326", prj))
+          map.getView().setZoom(defzoom)
 
           tline.dispatchEvent({
             type: 'scroll',
@@ -464,8 +468,8 @@ console.log("Start of mosaic map script:");
 
           id_tooltip_clear()
 
-            map.getView().setCenter(centerTrans3);
-            map.getView().setZoom(defzoom);
+            //map.getView().setCenter(centerTrans3);
+            //map.getView().setZoom(defzoom);
           //map.setView(new ol.View({
             //center: centerTrans3,
             //minZoom: 2,
@@ -588,6 +592,10 @@ console.log("Start of mosaic map script:");
 
           // display clickable ID in tooltip
           id_tooltip()
+          map.getView().setCenter(centerTrans3)
+          map.getView().set('extent', ol.proj.transformExtent(Q3_ext, "EPSG:4326", prj))
+          map.getView().setZoom(defzoom)
+
 
           tline.dispatchEvent({
             type: 'scroll',

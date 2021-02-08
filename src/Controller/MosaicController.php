@@ -176,6 +176,7 @@ class MosaicController extends ControllerBase {
                 'mosaic/mosaic',
               ],
 
+
             'drupalSettings' => [
               'mosaic' => [
                 'prinfoQ1' => $prinfoQ1,
@@ -184,6 +185,9 @@ class MosaicController extends ControllerBase {
                 'envelops' => $envelops,
             ],
           ],
+          ],
+          '#cache' => [
+            'max-age' => 0,
           ],
         ];
     }
