@@ -3,11 +3,11 @@ mosaic_tool:
   title: 'Mosaic Tool'
   description: 'Mosaic Tool'
   route_name: mosaic
-  parent: mosaic.main
+  parent: metsis.services
   weight: 99
 
-mosaic.main:
+metsis.services:
   title: 'Services'
   route_name: mosaic.main
-  description: "METNO Services"
+  description: "METSIS Services"
   menu_name: main

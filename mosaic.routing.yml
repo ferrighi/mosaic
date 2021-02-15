@@ -1,5 +1,5 @@
 mosaic:
-  path: '/mosaic'
+  path: '/services/mosaic'
   defaults:
     _controller: '\Drupal\mosaic\Controller\MosaicController::render'
     _title: 'Mosaic Tool'
