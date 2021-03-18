@@ -7,7 +7,7 @@ mosaic:
     _permission: 'access content'
 
 
-mosaic.main:
+metsis.services:
   path: '#'
   defaults:
     _title: 'Services'

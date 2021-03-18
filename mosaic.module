@@ -22,7 +22,21 @@ function mosaic_help($route_name, RouteMatchInterface $route_match)
 
 // Implements hook_theme()
 function mosaic_theme( $existing, $type, $theme, $path ){
+  $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
+  switch($language) {
+    case 'nb':
     return [
+          'mosaic-template' => [
+              'render element' => 'container', // To render a simple container element
+              'template' => 'mosaic_nb', // My template file name
+              'variables' => [
+                  'site_name' => "Default",
+                ],
+          ],
+      ];
+      break;
+    case 'en':
+  return [
         'mosaic-template' => [
             'render element' => 'container', // To render a simple container element
             'template' => 'mosaic', // My template file name
@@ -31,4 +45,6 @@ function mosaic_theme( $existing, $type, $theme, $path ){
               ],
         ],
     ];
+    break;
+  }
 }
