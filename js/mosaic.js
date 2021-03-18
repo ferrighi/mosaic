@@ -210,6 +210,9 @@ console.log("Start of mosaic map script:");
             var minx = ol.proj.transform([we, no], "EPSG:4326", prj)[0];
 
             if (prinfoQ1[i12][1].includes("S2")) {
+              var wmsUrl = prinfoQ1[i12][0];
+              wmsUrl = wmsUrl.replace(/(^\w+:|^)\/\//, '//');
+              wmsUrl = wmsUrl.split("?")[0];
               layer[i12] = new ol.layer.Tile({
                 visible: false,
                 title: prinfoQ1[i12][1],
@@ -218,7 +221,7 @@ console.log("Start of mosaic map script:");
                 acqStart: new Date(prinfoQ1[i12][4][0]),
                 acqEnd: new Date(prinfoQ1[i12][4][1]),
                 source: new ol.source.TileWMS({
-                  url: prinfoQ1[i12][0],
+                  url: wmsUrl,
                   projection: prj,
                   params: {
                     'LAYERS': 'true_color_vegetation',
@@ -243,6 +246,9 @@ console.log("Start of mosaic map script:");
               } else {
                 var lyr = 'amplitude_hh';
               }
+              var wmsUrl = prinfoQ1[i12][0];
+              wmsUrl = wmsUrl.replace(/(^\w+:|^)\/\//, '//');
+              wmsUrl = wmsUrl.split("?")[0];
               layer[i12] = new ol.layer.Tile({
                 visible: false,
                 title: prinfoQ1[i12][1],
@@ -251,7 +257,7 @@ console.log("Start of mosaic map script:");
                 acqStart: new Date(prinfoQ1[i12][4][0]),
                 acqEnd: new Date(prinfoQ1[i12][4][1]),
                 source: new ol.source.TileWMS({
-                  url: prinfoQ1[i12][0],
+                  url: wmsUrl,
                   projection: prj,
                   params: {
                     'LAYERS': lyr,
