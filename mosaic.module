@@ -48,3 +48,17 @@ function mosaic_theme( $existing, $type, $theme, $path ){
     break;
   }
 }
+
+// Implements hook_theme()
+function mosaic_nb_theme( $existing, $type, $theme, $path ){
+
+    return [
+          'mosaic-template' => [
+              'render element' => 'container', // To render a simple container element
+              'template' => 'mosaic_nb', // My template file name
+              'variables' => [
+                  'site_name' => "Default",
+                ],
+          ],
+      ];
+}

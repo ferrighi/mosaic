@@ -115,7 +115,8 @@ class MosaicController extends ControllerBase {
         foreach ($resultQ1 as $doc) {
            $fields = $doc->getFields();
            $id = $fields['id'];
-           $address = $fields['data_access_url_ogc_wms'][0];
+           //$address = $fields['data_access_url_ogc_wms'][0];
+           $address = isset($fields['data_access_url_ogc_wms']) ? $fields['data_access_url_ogc_wms'][0] :'NA';
            $start = $fields['temporal_extent_start_date'];
            $end = $fields['temporal_extent_end_date'];
            $north = $fields['geographic_extent_rectangle_north'];
@@ -130,7 +131,8 @@ class MosaicController extends ControllerBase {
         foreach ($resultQ2 as $doc) {
            $fields = $doc->getFields();
            $id = $fields['id'];
-           $address = $fields['data_access_url_ogc_wms'][0];
+           //$address = $fields['data_access_url_ogc_wms'][0];
+           $address = isset($fields['data_access_url_ogc_wms']) ? $fields['data_access_url_ogc_wms'][0] :'NA';
            $start = $fields['temporal_extent_start_date'];
            $end = $fields['temporal_extent_end_date'];
            $north = $fields['geographic_extent_rectangle_north'];
@@ -145,7 +147,8 @@ class MosaicController extends ControllerBase {
         foreach ($resultQ3 as $doc) {
            $fields = $doc->getFields();
            $id = $fields['id'];
-           $address = $fields['data_access_url_ogc_wms'][0];
+           //$address = $fields['data_access_url_ogc_wms'][0];
+           $address = isset($fields['data_access_url_ogc_wms']) ? $fields['data_access_url_ogc_wms'][0] :'NA';
            $start = $fields['temporal_extent_start_date'];
            $end = $fields['temporal_extent_end_date'];
            $north = $fields['geographic_extent_rectangle_north'];

@@ -222,7 +222,7 @@ console.log("Start of mosaic map script:");
                 acqEnd: new Date(prinfoQ1[i12][4][1]),
                 source: new ol.source.TileWMS({
                   url: wmsUrl,
-                  projection: prj,
+                  //projection: prj,
                   params: {
                     'LAYERS': 'true_color_vegetation',
                     'TRANSPARENT': 'true',
@@ -258,7 +258,7 @@ console.log("Start of mosaic map script:");
                 acqEnd: new Date(prinfoQ1[i12][4][1]),
                 source: new ol.source.TileWMS({
                   url: wmsUrl,
-                  projection: prj,
+                  //projection: prj,
                   params: {
                     'LAYERS': lyr,
                     'TRANSPARENT': 'true',
@@ -270,7 +270,7 @@ console.log("Start of mosaic map script:");
                     //'TILE': 'true',
                     //'WIDTH': '256',
                     //'HEIGHT': '256',
-                    //'BBOX': 'minx,miny,maxx,maxy'
+                    'BBOX': 'minx,miny,maxx,maxy'
                   },
                   crossOrigin: 'anonymous'
                 })
@@ -366,6 +366,9 @@ console.log("Start of mosaic map script:");
             var maxy = ol.proj.transform([ea, no], "EPSG:4326", prj)[1];
             var minx = ol.proj.transform([we, no], "EPSG:4326", prj)[0];
             if (prinfoQ2[i12][1].includes("S2")) {
+              var wmsUrl = prinfoQ2[i12][0];
+              wmsUrl = wmsUrl.replace(/(^\w+:|^)\/\//, '//');
+              wmsUrl = wmsUrl.split("?")[0];
               layer[i12] = new ol.layer.Tile({
                 visible: false,
                 title: prinfoQ2[i12][1],
@@ -374,8 +377,8 @@ console.log("Start of mosaic map script:");
                 acqStart: new Date(prinfoQ2[i12][4][0]),
                 acqEnd: new Date(prinfoQ2[i12][4][1]),
                 source: new ol.source.TileWMS({
-                  url: prinfoQ2[i12][0],
-                  projection: prj,
+                  url: wmsUrl,
+                  //projection: prj,
                   params: {
                     'LAYERS': 'true_color_vegetation',
                     'TRANSPARENT': 'true',
@@ -385,8 +388,8 @@ console.log("Start of mosaic map script:");
                     //'SERVICE': 'WMS',
                     //'REQUEST': 'GetMap',
                     //'TILE': 'true',
-                    'WIDTH': '256',
-                    'HEIGHT': '256',
+                    //'WIDTH': '256',
+                    //'HEIGHT': '256',
                     'BBOX': 'minx,miny,maxx,maxy'
                   },
                   crossOrigin: 'anonymous'
@@ -399,6 +402,9 @@ console.log("Start of mosaic map script:");
               } else {
                 var lyr = 'amplitude_hh';
               }
+              var wmsUrl = prinfoQ2[i12][0];
+              wmsUrl = wmsUrl.replace(/(^\w+:|^)\/\//, '//');
+              wmsUrl = wmsUrl.split("?")[0];
               layer[i12] = new ol.layer.Tile({
                 visible: false,
                 title: prinfoQ2[i12][1],
@@ -407,8 +413,8 @@ console.log("Start of mosaic map script:");
                 acqStart: new Date(prinfoQ2[i12][4][0]),
                 acqEnd: new Date(prinfoQ2[i12][4][1]),
                 source: new ol.source.TileWMS({
-                  url: prinfoQ2[i12][0],
-                  projection: prj,
+                  url: wmsUrl,
+                  //projection: prj,
                   params: {
                     'LAYERS': lyr,
                     'TRANSPARENT': 'true',
@@ -420,7 +426,7 @@ console.log("Start of mosaic map script:");
                     //'TILE': 'true',
                     //'WIDTH': '256',
                     //'HEIGHT': '256',
-                    //'BBOX': 'minx,miny,maxx,maxy'
+                    'BBOX': 'minx,miny,maxx,maxy'
                   },
                   crossOrigin: 'anonymous'
                 })
@@ -511,6 +517,9 @@ console.log("Start of mosaic map script:");
             var maxy = ol.proj.transform([ea, no], "EPSG:4326", prj)[1];
             var minx = ol.proj.transform([we, no], "EPSG:4326", prj)[0];
             if (prinfoQ3[i12][1].includes("S2")) {
+              var wmsUrl = prinfoQ3[i12][0];
+              wmsUrl = wmsUrl.replace(/(^\w+:|^)\/\//, '//');
+              wmsUrl = wmsUrl.split("?")[0];
               layer[i12] = new ol.layer.Tile({
                 visible: false,
                 title: prinfoQ3[i12][1],
@@ -519,8 +528,8 @@ console.log("Start of mosaic map script:");
                 acqStart: new Date(prinfoQ3[i12][4][0]),
                 acqEnd: new Date(prinfoQ3[i12][4][1]),
                 source: new ol.source.TileWMS({
-                  url: prinfoQ3[i12][0],
-                  projection: prj,
+                  url: wmsUrl,
+                  //projection: prj,
                   params: {
                     'LAYERS': 'true_color_vegetation',
                     'TRANSPARENT': 'true',
@@ -532,7 +541,7 @@ console.log("Start of mosaic map script:");
                     //'TILE': 'true',
                     //'WIDTH': '256',
                     //'HEIGHT': '256',
-                    //'BBOX': 'minx,miny,maxx,maxy'
+                    'BBOX': 'minx,miny,maxx,maxy'
                   },
                   crossOrigin: 'anonymous'
                 })
@@ -544,6 +553,9 @@ console.log("Start of mosaic map script:");
               } else {
                 var lyr = 'amplitude_hh';
               }
+              var wmsUrl = prinfoQ3[i12][0];
+              wmsUrl = wmsUrl.replace(/(^\w+:|^)\/\//, '//');
+              wmsUrl = wmsUrl.split("?")[0];
               layer[i12] = new ol.layer.Tile({
                 visible: false,
                 title: prinfoQ3[i12][1],
@@ -552,8 +564,8 @@ console.log("Start of mosaic map script:");
                 acqStart: new Date(prinfoQ3[i12][4][0]),
                 acqEnd: new Date(prinfoQ3[i12][4][1]),
                 source: new ol.source.TileWMS({
-                  url: prinfoQ3[i12][0],
-                  projection: prj,
+                  url: wmsUrl,
+                  //projection: prj,
                   params: {
                     'LAYERS': lyr,
                     'TRANSPARENT': 'true',
@@ -565,7 +577,7 @@ console.log("Start of mosaic map script:");
                     //'TILE': 'true',
                     //'WIDTH': '256',
                     //'HEIGHT': '256',
-                    //'BBOX': 'minx,miny,maxx,maxy'
+                    'BBOX': 'minx,miny,maxx,maxy'
                   },
                   crossOrigin: 'anonymous'
                 })
