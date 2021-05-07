@@ -1,0 +1,44 @@
+{
+    "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+    "@type": "SoftwareSourceCode",
+    "license": "https://spdx.org/licenses/GPL-3.0",
+    "codeRepository": "git+https://github.com/ferrighi/mosaic.git",
+    "dateCreated": "2019-04-29",
+    "issueTracker": "https://github.com/ferrighi/mosaic/issues",
+    "name": "Mosaic Tool",
+    "description": "Drupal module for displaying the Sentinel-1 and Sentinel-2 products on an map",
+    "keywords": [
+        "drupal",
+        "visualization",
+        "sentinel"
+    ],
+    "programmingLanguage": [
+        "PHP",
+        "javascript",
+        "CSS",
+        "Twig"
+    ],
+    "author": [
+        {
+            "@type": "Person",
+            "@id": "https://orcid.org/0000-0001-5221-1377",
+            "givenName": "Lara",
+            "familyName": "Ferrighi",
+            "email": "laraf@met.no",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "Norwegian Meteorological Institute"
+            }
+        },
+        {
+            "@type": "Person",
+            "givenName": "Magnar Eivind  ",
+            "familyName": "Martinsen",
+            "email": "magnarem@met.no",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "Norwegian Meteorological Institute"
+            }
+        }
+    ]
+}
