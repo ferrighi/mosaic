@@ -75,18 +75,21 @@ class MosaicController extends ControllerBase {
       $queryQ1->setQuery($queryQ1_prd);
       $queryQ1->setStart(0)->setRows(1500);
       $queryQ1->setFields($fields);
+      $queryQ1->createFilterQuery('collection')->setQuery('collection:(NBS)');
 
 
       $queryQ2 = $connector->getSelectQuery();
       $queryQ2->setQuery($queryQ2_prd);
       $queryQ2->setStart(0)->setRows(1500);
       $queryQ2->setFields($fields);
+      $queryQ2->createFilterQuery('collection')->setQuery('collection:(NBS)');
 
 
       $queryQ3 = $connector->getSelectQuery();
       $queryQ3->setQuery($queryQ3_prd);
       $queryQ3->setStart(0)->setRows(1500);
       $queryQ3->setFields($fields);
+      $queryQ3->createFilterQuery('collection')->setQuery('collection:(NBS)');
 
 // set fields to fetch (this overrides the default setting 'all fields')
 
