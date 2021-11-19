@@ -378,7 +378,7 @@ console.log("Start of mosaic map script:");
                 displayInLayerSwitcher: false,
                 acqStart: new Date(prinfoQ2[i12][4][0]),
                 acqEnd: new Date(prinfoQ2[i12][4][1]),
-                uid: prinfoQ1[i12][5],
+                uid: prinfoQ2[i12][5],
                 source: new ol.source.TileWMS({
                   url: wmsUrl,
                   //projection: prj,
@@ -417,7 +417,7 @@ console.log("Start of mosaic map script:");
                   extent: ol.proj.transformExtent(Q2_ext, "EPSG:4326", prj),
                 acqStart: new Date(prinfoQ2[i12][4][0]),
                 acqEnd: new Date(prinfoQ2[i12][4][1]),
-                uid: prinfoQ1[i12][5],
+                uid: prinfoQ2[i12][5],
                 source: new ol.source.TileWMS({
                   url: wmsUrl,
                   //projection: prj,
@@ -533,7 +533,7 @@ console.log("Start of mosaic map script:");
                 displayInLayerSwitcher: false,
                 acqStart: new Date(prinfoQ3[i12][4][0]),
                 acqEnd: new Date(prinfoQ3[i12][4][1]),
-                uid: prinfoQ1[i12][5],
+                uid: prinfoQ3[i12][5],
                 source: new ol.source.TileWMS({
                   url: wmsUrl,
                   //projection: prj,
@@ -570,7 +570,7 @@ console.log("Start of mosaic map script:");
                   extent: ol.proj.transformExtent(Q3_ext, "EPSG:4326", prj),
                 acqStart: new Date(prinfoQ3[i12][4][0]),
                 acqEnd: new Date(prinfoQ3[i12][4][1]),
-                uid: prinfoQ1[i12][5],
+                uid: prinfoQ3[i12][5],
                 source: new ol.source.TileWMS({
                   url: wmsUrl,
                   //projection: prj,
