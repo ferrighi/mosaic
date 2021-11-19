@@ -138,7 +138,7 @@ console.log("Start of mosaic map script:");
             map.forEachLayerAtPixel(evt.pixel, function(layer) {
               if (layer.get('title') != 'base' && first) {
                 //window.open('https://satellittdata.no/metsis/display/metadata/?core=l1&datasetID='+layer.get("title"));
-                window.open('/metsis/map/wms?dataset=' + layer.get("title") + '&solr_core=nbs-l1');
+                window.open('/metsis/map/wms?dataset=' + layer.get("uid"));
                 first = false;
               }
             });
@@ -154,7 +154,7 @@ console.log("Start of mosaic map script:");
             map.forEachLayerAtPixel(evt.pixel, function(layer) {
               if (layer.get('title') != 'base' && first) {
                 tooltip.style.display = 'inline-block';
-                tooltip.innerHTML = 'Get Metadata: <a class="use-ajax" data-dialog-options="{"width":600, "title":"Metadata Details"}" data-dialog-type="dialog" data-dialog-renderer="off-canvas" href="/metsis/metadata/' + layer.get('title') + '">' + layer.get('title') + '</a>';
+                tooltip.innerHTML = 'Get Metadata: <a class="use-ajax" data-dialog-options="{"width":600, "title":"Metadata Details"}" data-dialog-type="dialog" data-dialog-renderer="off-canvas" href="/metsis/metadata/' + layer.get('uid') + '">' + layer.get('title') + '</a>';
                 first = false;
               }
             });
@@ -220,6 +220,7 @@ console.log("Start of mosaic map script:");
                 displayInLayerSwitcher: false,
                 acqStart: new Date(prinfoQ1[i12][4][0]),
                 acqEnd: new Date(prinfoQ1[i12][4][1]),
+                uid: prinfoQ1[i12][5],
                 source: new ol.source.TileWMS({
                   url: wmsUrl,
                   //projection: prj,
@@ -241,7 +242,7 @@ console.log("Start of mosaic map script:");
               });
               list_of_layers_S2_Q1.push(layer[i12]);
             } else {
-              if (prinfoQ1[i12][2][0] == "Amplitude VV polarisation") {
+              if (prinfoQ1[i12][2] === "Amplitude VV polarisation") {
                 var lyr = 'amplitude_vv';
               } else {
                 var lyr = 'amplitude_hh';
@@ -256,6 +257,7 @@ console.log("Start of mosaic map script:");
                 displayInLayerSwitcher: false,
                 acqStart: new Date(prinfoQ1[i12][4][0]),
                 acqEnd: new Date(prinfoQ1[i12][4][1]),
+                uid: prinfoQ1[i12][5],
                 source: new ol.source.TileWMS({
                   url: wmsUrl,
                   //projection: prj,
@@ -270,7 +272,7 @@ console.log("Start of mosaic map script:");
                     //'TILE': 'true',
                     //'WIDTH': '256',
                     //'HEIGHT': '256',
-                    'BBOX': 'minx,miny,maxx,maxy'
+                    //'BBOX': 'minx,miny,maxx,maxy'
                   },
                   crossOrigin: 'anonymous'
                 })
@@ -376,6 +378,7 @@ console.log("Start of mosaic map script:");
                 displayInLayerSwitcher: false,
                 acqStart: new Date(prinfoQ2[i12][4][0]),
                 acqEnd: new Date(prinfoQ2[i12][4][1]),
+                uid: prinfoQ1[i12][5],
                 source: new ol.source.TileWMS({
                   url: wmsUrl,
                   //projection: prj,
@@ -390,17 +393,19 @@ console.log("Start of mosaic map script:");
                     //'TILE': 'true',
                     //'WIDTH': '256',
                     //'HEIGHT': '256',
-                    'BBOX': 'minx,miny,maxx,maxy'
+                    //'BBOX': 'minx,miny,maxx,maxy'
                   },
                   crossOrigin: 'anonymous'
                 })
               });
               list_of_layers_S2_Q2.push(layer[i12]);
             } else {
-              if (prinfoQ2[i12][2][0] == "Amplitude VV polarisation") {
+              if (prinfoQ2[i12][2] === "Amplitude VV polarisation") {
                 var lyr = 'amplitude_vv';
+                  //console.log("got layer: " + lyr + " for: " + prinfoQ2[i12][1]);
               } else {
                 var lyr = 'amplitude_hh';
+                //console.log("got layer: " + lyr + " for: " + prinfoQ2[i12][1]);
               }
               var wmsUrl = prinfoQ2[i12][0];
               wmsUrl = wmsUrl.replace(/(^\w+:|^)\/\//, '//');
@@ -412,6 +417,7 @@ console.log("Start of mosaic map script:");
                   extent: ol.proj.transformExtent(Q2_ext, "EPSG:4326", prj),
                 acqStart: new Date(prinfoQ2[i12][4][0]),
                 acqEnd: new Date(prinfoQ2[i12][4][1]),
+                uid: prinfoQ1[i12][5],
                 source: new ol.source.TileWMS({
                   url: wmsUrl,
                   //projection: prj,
@@ -426,7 +432,7 @@ console.log("Start of mosaic map script:");
                     //'TILE': 'true',
                     //'WIDTH': '256',
                     //'HEIGHT': '256',
-                    'BBOX': 'minx,miny,maxx,maxy'
+                  //  'BBOX': 'minx,miny,maxx,maxy'
                   },
                   crossOrigin: 'anonymous'
                 })
@@ -527,6 +533,7 @@ console.log("Start of mosaic map script:");
                 displayInLayerSwitcher: false,
                 acqStart: new Date(prinfoQ3[i12][4][0]),
                 acqEnd: new Date(prinfoQ3[i12][4][1]),
+                uid: prinfoQ1[i12][5],
                 source: new ol.source.TileWMS({
                   url: wmsUrl,
                   //projection: prj,
@@ -541,14 +548,14 @@ console.log("Start of mosaic map script:");
                     //'TILE': 'true',
                     //'WIDTH': '256',
                     //'HEIGHT': '256',
-                    'BBOX': 'minx,miny,maxx,maxy'
+                    //'BBOX': 'minx,miny,maxx,maxy'
                   },
                   crossOrigin: 'anonymous'
                 })
               });
               list_of_layers_S2_Q3.push(layer[i12]);
             } else {
-              if (prinfoQ3[i12][2][0] == "Amplitude VV polarisation") {
+              if (prinfoQ3[i12][2] === "Amplitude VV polarisation") {
                 var lyr = 'amplitude_vv';
               } else {
                 var lyr = 'amplitude_hh';
@@ -563,6 +570,7 @@ console.log("Start of mosaic map script:");
                   extent: ol.proj.transformExtent(Q3_ext, "EPSG:4326", prj),
                 acqStart: new Date(prinfoQ3[i12][4][0]),
                 acqEnd: new Date(prinfoQ3[i12][4][1]),
+                uid: prinfoQ1[i12][5],
                 source: new ol.source.TileWMS({
                   url: wmsUrl,
                   //projection: prj,
@@ -577,7 +585,7 @@ console.log("Start of mosaic map script:");
                     //'TILE': 'true',
                     //'WIDTH': '256',
                     //'HEIGHT': '256',
-                    'BBOX': 'minx,miny,maxx,maxy'
+                    //'BBOX': 'minx,miny,maxx,maxy'
                   },
                   crossOrigin: 'anonymous'
                 })

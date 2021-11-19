@@ -53,6 +53,7 @@ class MosaicController extends ControllerBase {
 
       //Define the fields to be added to the resultSet
       $fields[] = 'id';
+      $fields[] = 'title';
       $fields[] = 'temporal_extent_start_date';
       $fields[] = 'temporal_extent_end_date';
       $fields[] = 'data_access_url_opendap';
@@ -117,7 +118,7 @@ class MosaicController extends ControllerBase {
         $count3 = 0;
         foreach ($resultQ1 as $doc) {
            $fields = $doc->getFields();
-           $id = $fields['id'];
+           $id = $fields['title'][0];
            //$address = $fields['data_access_url_ogc_wms'][0];
            $address = isset($fields['data_access_url_ogc_wms']) ? $fields['data_access_url_ogc_wms'][0] :'NA';
            $start = $fields['temporal_extent_start_date'];
@@ -126,14 +127,15 @@ class MosaicController extends ControllerBase {
            $south = $fields['geographic_extent_rectangle_south'];
            $east = $fields['geographic_extent_rectangle_east'];
            $west = $fields['geographic_extent_rectangle_west'];
+           $uid = $fields['id'];
            $layers = isset($fields['data_access_wms_layers']) ? $fields['data_access_wms_layers'][0] : 'None';
            $latlon = array(($south+$north)/2, ($east+$west)/2);
-           $prinfoQ1[$count] = array($address, $id, $layers, array($north,$south,$east,$west), array($start, $end));
+           $prinfoQ1[$count] = array($address, $id, $layers, array($north,$south,$east,$west), array($start, $end), $uid);
            $count = $count + 1;
         }
         foreach ($resultQ2 as $doc) {
            $fields = $doc->getFields();
-           $id = $fields['id'];
+           $id = $fields['title'][0];
            //$address = $fields['data_access_url_ogc_wms'][0];
            $address = isset($fields['data_access_url_ogc_wms']) ? $fields['data_access_url_ogc_wms'][0] :'NA';
            $start = $fields['temporal_extent_start_date'];
@@ -142,14 +144,15 @@ class MosaicController extends ControllerBase {
            $south = $fields['geographic_extent_rectangle_south'];
            $east = $fields['geographic_extent_rectangle_east'];
            $west = $fields['geographic_extent_rectangle_west'];
+           $uid = $fields['id'];
            $layers = isset($fields['data_access_wms_layers']) ? $fields['data_access_wms_layers'][0] : 'None';
            $latlon = array(($south+$north)/2, ($east+$west)/2);
-           $prinfoQ2[$count2] = array($address, $id, $layers, array($north,$south,$east,$west), array($start, $end));
+           $prinfoQ2[$count2] = array($address, $id, $layers, array($north,$south,$east,$west), array($start, $end),$uid);
            $count2 = $count2 + 1;
         }
         foreach ($resultQ3 as $doc) {
            $fields = $doc->getFields();
-           $id = $fields['id'];
+           $id = $fields['title'][0];
            //$address = $fields['data_access_url_ogc_wms'][0];
            $address = isset($fields['data_access_url_ogc_wms']) ? $fields['data_access_url_ogc_wms'][0] :'NA';
            $start = $fields['temporal_extent_start_date'];
@@ -158,9 +161,10 @@ class MosaicController extends ControllerBase {
            $south = $fields['geographic_extent_rectangle_south'];
            $east = $fields['geographic_extent_rectangle_east'];
            $west = $fields['geographic_extent_rectangle_west'];
+           $uid = $fields['id'];
            $layers = isset($fields['data_access_wms_layers']) ? $fields['data_access_wms_layers'][0] : 'None';
            $latlon = array(($south+$north)/2, ($east+$west)/2);
-           $prinfoQ3[$count3] = array($address, $id, $layers, array($north,$south,$east,$west), array($start, $end));
+           $prinfoQ3[$count3] = array($address, $id, $layers, array($north,$south,$east,$west), array($start, $end), $uid);
            $count3 = $count3 + 1;
         }
 
