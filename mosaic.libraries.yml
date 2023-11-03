@@ -5,18 +5,12 @@ mosaic:
 
       /libraries/openlayers-6.5.0/ol.css: {}
       /libraries/ol-ext-3.1.17/dist/ol-ext.css: {}
-#      /libraries/ol-layerswitcher-3.8.3/dist/ol-layerswitcher.css: {}
-
-#      css/ol-ext.css: {}
     theme:
       css/mosaic_style.css: {}
   js:
     /libraries/proj4js-2.6.3/dist/proj4.js: {}
     /libraries/openlayers-6.5.0/ol.js: {}
     /libraries/ol-ext-3.1.17/dist/ol-ext.js: {}
-#    /libraries/ol-layerswitcher-3.8.3/dist/ol-layerswitcher.js: {}
-
-#    js/ol-ext.js: {}
     js/mosaic.js: {}
   dependencies:
     - core/jquery

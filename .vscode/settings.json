@@ -1,0 +1,68 @@
+{
+  "breadcrumbs.enabled": true,
+  "css.validate": true,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.tabSize": 2,
+  "editor.autoIndent": "full",
+  "editor.insertSpaces": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": false,
+  "editor.renderWhitespace": "boundary",
+  "editor.wordWrapColumn": 80,
+  "editor.wordWrap": "off",
+  "editor.detectIndentation": true,
+  "editor.rulers": [
+    80
+  ],
+  "files.associations": {
+    "*.inc": "php",
+    "*.module": "php",
+    "*.install": "php",
+    "*.theme": "php",
+    "*.profile": "php",
+    "*.tpl.php": "php",
+    "*.test": "php",
+    "*.php": "php",
+    "*.info": "ini",
+    "*.html": "twig",
+  },
+  "files.trimTrailingWhitespace": true,
+  "files.restoreUndoStack": false,
+  "files.insertFinalNewline": true,
+  "html.format.enable": true,
+  "html.format.wrapLineLength": 80,
+  "telemetry.telemetryLevel": "off",
+  /* Empty Indent */
+  "emptyIndent.removeIndent": true,
+  "emptyIndent.highlightIndent": false,
+  "emptyIndent.highlightColor": "rgba(246,36,89,0.6)",
+  "phpcs.enable": true,
+  "phpcs.standard": "Drupal,DrupalPractice",
+  "phpcs.executablePath": "/home/magnarem/.config/composer/vendor/bin/phpcs",
+  "phpsab.fixerEnable": true,
+  "[php]": {
+    "editor.defaultFormatter": "valeryanm.vscode-phpsab",
+  },
+  "phpsab.executablePathCBF": "/home/magnarem/.config/composer/vendor/bin/phpcbf",
+  "phpsab.allowedAutoRulesets": [
+    "phpcs.xml"
+  ],
+  "phpcbf.enable": true,
+  "phpcbf.executablePath": "phpcbf",
+  "phpcbf.documentFormattingProvider": true,
+  "phpcbf.onsave": false,
+  "php.validate.enable": true,
+  "php.validate.executablePath": "/usr/bin/php",
+  "php.validate.run": "onType",
+  "php-docblocker.gap": true,
+  "php-docblocker.useShortNames": true,
+  "emmet.includeLanguages": {
+    "twig": "html"
+  },
+  "json.schemas": [],
+  "eslint.format.enable": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+  },
+  "cSpell.diagnosticLevel": "Hint",
+}

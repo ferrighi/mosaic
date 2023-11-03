@@ -1,11 +1,13 @@
 console.log("Start of mosaic map script:");
-(function($, Drupal, drupalSettings) {
+(function($, Drupal, drupalSettings, once) {
 
   console.log("Attaching mosaic script to drupal behaviours:");
   /** Attach the metsis map to drupal behaviours function */
   Drupal.behaviors.mosaic = {
-    attach: function(context, drupalSettings) {
-      $('#map', context).each(function() {
+    attach: function(context) {
+      const mapEl = $(once('#map', '[data-mosaic-map]', context));
+      mapEl.each(function () {
+      //$('#map', context).each(function() {
         //$('#map-res', context).once('metsisSearchBlock').each(function() {
         /** Start reading drupalSettings sent from the mapblock build */
         console.log('Initializing MOSAIC Map...');
@@ -715,4 +717,4 @@ console.log("Start of mosaic map script:");
     },
   };
 
-})(jQuery, Drupal, drupalSettings);
+})(jQuery, Drupal, drupalSettings, once);

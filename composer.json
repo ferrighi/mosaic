@@ -1,0 +1,10 @@
+{
+    "name": "metno/mosaic",
+    "type": "drupal-custom-module",
+    "description": "Mosaic tool for displaying latest NBS products for Norway AOI.",
+    "license": "GPL-2.0-or-later",
+    "scripts": {
+        "sniff": "phpcs --colors -n --standard=Drupal --extensions=php,module,yml src",
+        "snifferfix": "phpcbf --colors -n --standard=Drupal --extensions=php,module,yml src"
+    }
+}
