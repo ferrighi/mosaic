@@ -87,9 +87,9 @@ class MosaicController extends ControllerBase {
     $resultQ2 = $connector->select($queryQ2);
     $resultQ3 = $connector->select($queryQ3);
      */
-    $this->getLogger('mosaic_tool')->debug("Q1: " . $resultQ1->getNumFound());
-    $this->getLogger('mosaic_tool')->debug("Q2: " . $resultQ2->getNumFound());
-    $this->getLogger('mosaic_tool')->debug("Q3: " . $resultQ3->getNumFound());
+    // $this->getLogger('mosaic_tool')->debug("Q1: " . $resultQ1->getNumFound());
+    // $this->getLogger('mosaic_tool')->debug("Q2: " . $resultQ2->getNumFound());
+    // $this->getLogger('mosaic_tool')->debug("Q3: " . $resultQ3->getNumFound());
     $count = 0;
     $count2 = 0;
     $count3 = 0;
