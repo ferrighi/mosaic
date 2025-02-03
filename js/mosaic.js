@@ -16,32 +16,32 @@ console.log("Start of mosaic map script:");
         // WGS 84 / UPS North (N,E)
   /*      proj4.defs('EPSG:32661', '+proj=stere +lat_0=90 +lat_ts=90 +lon_0=0 +k=0.994 +x_0=2000000 +y_0=2000000 +datum=WGS84 +units=m +no_defs');
         ol.proj.proj4.register(proj4);
-        var proj32661 = ol.proj.get('EPSG:32661');
-        var ex32661 = [-4e+06, -6e+06, 8e+06, 8e+06];
+        let proj32661 = ol.proj.get('EPSG:32661');
+        let ex32661 = [-4e+06, -6e+06, 8e+06, 8e+06];
 
         proj32661.setExtent(ex32661);
         ol.proj.addProjection(proj32661);
 
-        var ext = ex32661;
-        var prj = proj32661;
-        var defzoom = 4;
+        let ext = ex32661;
+        let prj = proj32661;
+        let defzoom = 4;
 */
         // WGS 84 / UPS North (N,E)
         proj4.defs('EPSG:32661', '+proj=stere +lat_0=90 +lat_ts=90 +lon_0=0 +k=0.994 +x_0=2000000 +y_0=2000000 +datum=WGS84 +units=m +no_defs');
         ol.proj.proj4.register(proj4);
-        var proj32661 = ol.proj.get('EPSG:32661');
-        var ex32661 = [-4e+06,-6e+06,8e+06,8e+06];
+        let proj32661 = ol.proj.get('EPSG:32661');
+        let ex32661 = [-4e+06,-6e+06,8e+06,8e+06];
         proj32661.setExtent(ex32661);
         ol.proj.addProjection(proj32661);
 
-        var ext = ex32661;
-        var prj = proj32661;
-        var defzoom = 4;
-        // Import variables from php: array(address, id, layers)
-        var prinfoQ1 = drupalSettings.mosaic.prinfoQ1;
-        var prinfoQ2 = drupalSettings.mosaic.prinfoQ2;
-        var prinfoQ3 = drupalSettings.mosaic.prinfoQ3;
-        var envelops = drupalSettings.mosaic.envelops;
+        let ext = ex32661;
+        let prj = proj32661;
+        let defzoom = 4;
+        // Import letiables from php: array(address, id, layers)
+        let prinfoQ1 = drupalSettings.mosaic.prinfoQ1;
+        let prinfoQ2 = drupalSettings.mosaic.prinfoQ2;
+        let prinfoQ3 = drupalSettings.mosaic.prinfoQ3;
+        let envelops = drupalSettings.mosaic.envelops;
 
         console.log("Q1 results: " +prinfoQ1.length);
         console.log("Q2 results: " +prinfoQ2.length);
@@ -49,6 +49,7 @@ console.log("Start of mosaic map script:");
 
         // Define all layers
         var layer = {};
+        var lyr = '';
 
         // Base layer WMS
         layer['base']  = new ol.layer.Tile({
@@ -72,20 +73,20 @@ console.log("Start of mosaic map script:");
         //});
 
         // build up the map
-        var centerLonLat1 = [18, 80];
-        var centerTrans1 = ol.proj.transform(centerLonLat1, "EPSG:4326", prj);
-        var centerLonLat2 = [22, 68];
-        var centerTrans2 = ol.proj.transform(centerLonLat2, "EPSG:4326", prj);
-        var centerLonLat3 = [15, 60];
-        var centerTrans3 = ol.proj.transform(centerLonLat3, "EPSG:4326", prj);
+        let centerLonLat1 = [18, 80];
+        let centerTrans1 = ol.proj.transform(centerLonLat1, "EPSG:4326", prj);
+        let centerLonLat2 = [22, 68];
+        let centerTrans2 = ol.proj.transform(centerLonLat2, "EPSG:4326", prj);
+        let centerLonLat3 = [15, 60];
+        let centerTrans3 = ol.proj.transform(centerLonLat3, "EPSG:4326", prj);
 
         // define exents: (minx, miny, maxx, maxy)
-        var Q1_ext = [envelops[0][0], envelops[0][3], envelops[0][1], envelops[0][2]];
-        var Q2_ext = [envelops[1][0], envelops[1][3], envelops[1][1], envelops[1][2]];
-        var Q3_ext = [envelops[2][0], envelops[2][3], envelops[2][1], envelops[2][2]];
+        let Q1_ext = [envelops[0][0], envelops[0][3], envelops[0][1], envelops[0][2]];
+        let Q2_ext = [envelops[1][0], envelops[1][3], envelops[1][1], envelops[1][2]];
+        let Q3_ext = [envelops[2][0], envelops[2][3], envelops[2][1], envelops[2][2]];
 
         console.log("Creating the map");
-        var map = new ol.Map({
+        let map = new ol.Map({
           controls: ol.control.defaults().extend([
             new ol.control.FullScreen()
           ]),
@@ -105,8 +106,9 @@ console.log("Start of mosaic map script:");
 
         // create a progress bar to show the loading of tiles
         function progress_bar() {
-          var tilesLoaded = 0;
-          var tilesPending = 0;
+          let tilesLoaded = 0;
+          let tilesPending = 0;
+          let percentage = 0;
           //load all S1 and S2 entries
           map.getLayers().forEach(function(layer) {
             if (layer.get('title') !== 'base') {
@@ -114,7 +116,7 @@ console.log("Start of mosaic map script:");
                 //for all tiles that are done loading update the progress bar
                 layer.getSource().on('tileloadend', function() {
                   tilesLoaded += 1;
-                  var percentage = Math.round(tilesLoaded / tilesPending * 100);
+                  percentage = Math.round(tilesLoaded / tilesPending * 100);
                   document.getElementById('progress').style.width = percentage + '%';
                   // fill the bar to the end
                   if (percentage >= 100) {
@@ -136,7 +138,7 @@ console.log("Start of mosaic map script:");
         // metsis visualization on click? or metadata?
         function metadata_click() {
           map.on('click', function(evt) {
-            var first = true;
+            let first = true;
             map.forEachLayerAtPixel(evt.pixel, function(layer) {
               if (layer.get('title') != 'base' && first) {
                 //window.open('https://satellittdata.no/metsis/display/metadata/?core=l1&datasetID='+layer.get("title"));
@@ -149,10 +151,10 @@ console.log("Start of mosaic map script:");
 
         // clickable ID in tooltop
         function id_tooltip() {
-          var tooltip = document.getElementById('tooltip');
+          let tooltip = document.getElementById('tooltip');
 
           map.on('pointermove', function(evt) {
-            var first = true;
+            let first = true;
             map.forEachLayerAtPixel(evt.pixel, function(layer) {
               if (layer.get('title') != 'base' && first) {
                 tooltip.style.display = 'inline-block';
@@ -186,33 +188,33 @@ console.log("Start of mosaic map script:");
           //}));
 
           // Remove all layers that are not base
-          var layersToRemove = [];
+          let layersToRemove = [];
           map.getLayers().forEach(function(layer) {
             if (layer.get('title') != 'base') {
               layersToRemove.push(layer);
             }
           });
-          for (var i = 0; i < layersToRemove.length; i++) {
+          for (let i = 0; i < layersToRemove.length; i++) {
             map.removeLayer(layersToRemove[i]);
           }
 
-          var list_of_layers_S1_Q1 = [];
-          var list_of_layers_S2_Q1 = [];
+          let list_of_layers_S1_Q1 = [];
+          let list_of_layers_S2_Q1 = [];
 
           // add the layers to the groups
-          for (var i12 = 0; i12 <= prinfoQ1.length - 1; i12++) {
-            var no = prinfoQ1[i12][3][0];
-            var so = prinfoQ1[i12][3][1];
-            var ea = prinfoQ1[i12][3][2];
-            var we = prinfoQ1[i12][3][3];
+          for (let i12 = 0; i12 <= prinfoQ1.length - 1; i12++) {
+            let no = prinfoQ1[i12][3][0];
+            let so = prinfoQ1[i12][3][1];
+            let ea = prinfoQ1[i12][3][2];
+            let we = prinfoQ1[i12][3][3];
             // LonLat corners w-s, e-s, e-n, w-n
-            var miny = ol.proj.transform([we, so], "EPSG:4326", prj)[1];
-            var maxx = ol.proj.transform([ea, so], "EPSG:4326", prj)[0];
-            var maxy = ol.proj.transform([ea, no], "EPSG:4326", prj)[1];
-            var minx = ol.proj.transform([we, no], "EPSG:4326", prj)[0];
+            let miny = ol.proj.transform([we, so], "EPSG:4326", prj)[1];
+            let maxx = ol.proj.transform([ea, so], "EPSG:4326", prj)[0];
+            let maxy = ol.proj.transform([ea, no], "EPSG:4326", prj)[1];
+            let minx = ol.proj.transform([we, no], "EPSG:4326", prj)[0];
 
             if (prinfoQ1[i12][1].includes("S2")) {
-              var wmsUrl = prinfoQ1[i12][0];
+              let wmsUrl = prinfoQ1[i12][0];
               wmsUrl = wmsUrl.replace(/(^\w+:|^)\/\//, '//');
               wmsUrl = wmsUrl.split("?")[0];
               layer[i12] = new ol.layer.Tile({
@@ -245,11 +247,11 @@ console.log("Start of mosaic map script:");
               list_of_layers_S2_Q1.push(layer[i12]);
             } else {
               if (prinfoQ1[i12][2] === "Amplitude VV polarisation") {
-                var lyr = 'amplitude_vv';
+                lyr = 'amplitude_vv';
               } else {
-                var lyr = 'amplitude_hh';
+                lyr = 'amplitude_hh';
               }
-              var wmsUrl = prinfoQ1[i12][0];
+              let wmsUrl = prinfoQ1[i12][0];
               wmsUrl = wmsUrl.replace(/(^\w+:|^)\/\//, '//');
               wmsUrl = wmsUrl.split("?")[0];
               layer[i12] = new ol.layer.Tile({
@@ -284,13 +286,13 @@ console.log("Start of mosaic map script:");
           }
 
           // build up the S1 and S2 groups
-          var S1_groupQ1 = new ol.layer.Group({
+          let S1_groupQ1 = new ol.layer.Group({
             title: 'S1',
             openInLayerSwitcher: false,
             layers: list_of_layers_S1_Q1
           });
 
-          var S2_groupQ1 = new ol.layer.Group({
+          let S2_groupQ1 = new ol.layer.Group({
             title: 'S2',
             openInLayerSwitcher: false,
             layers: list_of_layers_S2_Q1
@@ -345,32 +347,32 @@ console.log("Start of mosaic map script:");
           //}));
 
           // Remove all layers that are not base
-          var layersToRemove = [];
+          let layersToRemove = [];
           map.getLayers().forEach(function(layer) {
             if (layer.get('title') != 'base') {
               layersToRemove.push(layer);
             }
           });
-          for (var i = 0; i < layersToRemove.length; i++) {
+          for (let i = 0; i < layersToRemove.length; i++) {
             map.removeLayer(layersToRemove[i]);
           }
 
-          var list_of_layers_S1_Q2 = [];
-          var list_of_layers_S2_Q2 = [];
+          let list_of_layers_S1_Q2 = [];
+          let list_of_layers_S2_Q2 = [];
 
           // add the layers to the groups
-          for (var i12 = 0; i12 <= prinfoQ2.length - 1; i12++) {
-            var no = prinfoQ2[i12][3][0];
-            var so = prinfoQ2[i12][3][1];
-            var ea = prinfoQ2[i12][3][2];
-            var we = prinfoQ2[i12][3][3];
+          for (let i12 = 0; i12 <= prinfoQ2.length - 1; i12++) {
+            let no = prinfoQ2[i12][3][0];
+            let so = prinfoQ2[i12][3][1];
+            let ea = prinfoQ2[i12][3][2];
+            let we = prinfoQ2[i12][3][3];
             // LonLat corners w-s, e-s, e-n, w-n
-            var miny = ol.proj.transform([we, so], "EPSG:4326", prj)[1];
-            var maxx = ol.proj.transform([ea, so], "EPSG:4326", prj)[0];
-            var maxy = ol.proj.transform([ea, no], "EPSG:4326", prj)[1];
-            var minx = ol.proj.transform([we, no], "EPSG:4326", prj)[0];
+            let miny = ol.proj.transform([we, so], "EPSG:4326", prj)[1];
+            let maxx = ol.proj.transform([ea, so], "EPSG:4326", prj)[0];
+            let maxy = ol.proj.transform([ea, no], "EPSG:4326", prj)[1];
+            let minx = ol.proj.transform([we, no], "EPSG:4326", prj)[0];
             if (prinfoQ2[i12][1].includes("S2")) {
-              var wmsUrl = prinfoQ2[i12][0];
+              let wmsUrl = prinfoQ2[i12][0];
               wmsUrl = wmsUrl.replace(/(^\w+:|^)\/\//, '//');
               wmsUrl = wmsUrl.split("?")[0];
               layer[i12] = new ol.layer.Tile({
@@ -403,13 +405,13 @@ console.log("Start of mosaic map script:");
               list_of_layers_S2_Q2.push(layer[i12]);
             } else {
               if (prinfoQ2[i12][2] === "Amplitude VV polarisation") {
-                var lyr = 'amplitude_vv';
+                lyr = 'amplitude_vv';
                   //console.log("got layer: " + lyr + " for: " + prinfoQ2[i12][1]);
               } else {
-                var lyr = 'amplitude_hh';
+                lyr = 'amplitude_hh';
                 //console.log("got layer: " + lyr + " for: " + prinfoQ2[i12][1]);
               }
-              var wmsUrl = prinfoQ2[i12][0];
+              let wmsUrl = prinfoQ2[i12][0];
               wmsUrl = wmsUrl.replace(/(^\w+:|^)\/\//, '//');
               wmsUrl = wmsUrl.split("?")[0];
               layer[i12] = new ol.layer.Tile({
@@ -444,13 +446,13 @@ console.log("Start of mosaic map script:");
           }
 
           // build up the S1 and S2 groups
-          var S1_groupQ2 = new ol.layer.Group({
+          let S1_groupQ2 = new ol.layer.Group({
             title: 'S1',
             openInLayerSwitcher: false,
             layers: list_of_layers_S1_Q2
           });
 
-          var S2_groupQ2 = new ol.layer.Group({
+          let S2_groupQ2 = new ol.layer.Group({
             title: 'S2',
             openInLayerSwitcher: false,
             layers: list_of_layers_S2_Q2
@@ -500,32 +502,32 @@ console.log("Start of mosaic map script:");
           //}));
 
           // Remove all layers that are not base
-          var layersToRemove = [];
+          let layersToRemove = [];
           map.getLayers().forEach(function(layer) {
             if (layer.get('title') != 'base') {
               layersToRemove.push(layer);
             }
           });
-          for (var i = 0; i < layersToRemove.length; i++) {
+          for (let i = 0; i < layersToRemove.length; i++) {
             map.removeLayer(layersToRemove[i]);
           }
 
-          var list_of_layers_S1_Q3 = [];
-          var list_of_layers_S2_Q3 = [];
+          let list_of_layers_S1_Q3 = [];
+          let list_of_layers_S2_Q3 = [];
 
           // add the layers to the groups
-          for (var i12 = 0; i12 <= prinfoQ3.length - 1; i12++) {
-            var no = prinfoQ3[i12][3][0];
-            var so = prinfoQ3[i12][3][1];
-            var ea = prinfoQ3[i12][3][2];
-            var we = prinfoQ3[i12][3][3];
+          for (let i12 = 0; i12 <= prinfoQ3.length - 1; i12++) {
+            let no = prinfoQ3[i12][3][0];
+            let so = prinfoQ3[i12][3][1];
+            let ea = prinfoQ3[i12][3][2];
+            let we = prinfoQ3[i12][3][3];
             // LonLat corners w-s, e-s, e-n, w-n
-            var miny = ol.proj.transform([we, so], "EPSG:4326", prj)[1];
-            var maxx = ol.proj.transform([ea, so], "EPSG:4326", prj)[0];
-            var maxy = ol.proj.transform([ea, no], "EPSG:4326", prj)[1];
-            var minx = ol.proj.transform([we, no], "EPSG:4326", prj)[0];
+            let miny = ol.proj.transform([we, so], "EPSG:4326", prj)[1];
+            let maxx = ol.proj.transform([ea, so], "EPSG:4326", prj)[0];
+            let maxy = ol.proj.transform([ea, no], "EPSG:4326", prj)[1];
+            let minx = ol.proj.transform([we, no], "EPSG:4326", prj)[0];
             if (prinfoQ3[i12][1].includes("S2")) {
-              var wmsUrl = prinfoQ3[i12][0];
+              let wmsUrl = prinfoQ3[i12][0];
               wmsUrl = wmsUrl.replace(/(^\w+:|^)\/\//, '//');
               wmsUrl = wmsUrl.split("?")[0];
               layer[i12] = new ol.layer.Tile({
@@ -558,11 +560,11 @@ console.log("Start of mosaic map script:");
               list_of_layers_S2_Q3.push(layer[i12]);
             } else {
               if (prinfoQ3[i12][2] === "Amplitude VV polarisation") {
-                var lyr = 'amplitude_vv';
+                lyr = 'amplitude_vv';
               } else {
-                var lyr = 'amplitude_hh';
+                lyr = 'amplitude_hh';
               }
-              var wmsUrl = prinfoQ3[i12][0];
+              let wmsUrl = prinfoQ3[i12][0];
               wmsUrl = wmsUrl.replace(/(^\w+:|^)\/\//, '//');
               wmsUrl = wmsUrl.split("?")[0];
               layer[i12] = new ol.layer.Tile({
@@ -597,13 +599,13 @@ console.log("Start of mosaic map script:");
           }
 
           // build up the S1 and S2 groups
-          var S1_groupQ3 = new ol.layer.Group({
+          let S1_groupQ3 = new ol.layer.Group({
             title: 'S1',
             openInLayerSwitcher: false,
             layers: list_of_layers_S1_Q3
           });
 
-          var S2_groupQ3 = new ol.layer.Group({
+          let S2_groupQ3 = new ol.layer.Group({
             title: 'S2',
             openInLayerSwitcher: false,
             layers: list_of_layers_S2_Q3
@@ -634,12 +636,12 @@ console.log("Start of mosaic map script:");
         }
 
         //define times for time control
-        var today = new Date();
-        var tda = new Date();
+        let today = new Date();
+        let tda = new Date();
         tda.setDate(tda.getDate() - 7);
 
         // Create Timeline control
-         var tline = new ol.control.Timeline({
+         let tline = new ol.control.Timeline({
           features: layer,
           interval: '6h', // 90 days = 3 month interval
           graduation: 'day', // 'month'
@@ -670,8 +672,8 @@ console.log("Start of mosaic map script:");
           map.getLayers().forEach(function(f) {
             if (f.get('title') !== 'base') {
               f.getLayers().forEach(function(g) {
-                var dateS = g.get('acqStart');
-                var dateE = g.get('acqEnd');
+                let dateS = g.get('acqStart');
+                let dateE = g.get('acqEnd');
                 //console.log('date', e.dateStart, e.dateEnd);
                 //console.log('sten', dateS, dateE);
                 if (dateE < e.dateStart || dateS > e.dateEnd) {
@@ -692,12 +694,12 @@ console.log("Start of mosaic map script:");
 
 
         //Layer switcher
-        //var lswitcher = new ol.control.LayerSwitcher({targer:$(".layerSwithcer").get(0),});
-        var lswitcher = new ol.control.LayerSwitcher({});
+        //let lswitcher = new ol.control.LayerSwitcher({targer:$(".layerSwithcer").get(0),});
+        let lswitcher = new ol.control.LayerSwitcher({});
         map.addControl(lswitcher);
 
         //Mouseposition
-        var mousePositionControl = new ol.control.MousePosition({
+        let mousePositionControl = new ol.control.MousePosition({
           coordinateFormat: function(co) {
             return ol.coordinate.format(co, template = 'lon: {x}, lat: {y}', 2);
           },

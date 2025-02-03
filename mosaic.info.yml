@@ -2,6 +2,6 @@ name: 'Mosaic'
 description: 'Display latest NBS products'
 type: module
 core_version_requirement: ^8.8 || ^9 || ^10 | ^11
-version: 1.2.0
+version: 1.3.0
 package: METSIS
 dependencies:
