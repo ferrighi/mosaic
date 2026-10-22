@@ -3,8 +3,13 @@
     "type": "drupal-custom-module",
     "description": "Mosaic tool for displaying latest NBS products for Norway AOI.",
     "license": "GPL-3.0-or-later",
-    "scripts": {
-        "sniff": "phpcs --colors -n --standard=Drupal --extensions=php,module,yml src",
-        "snifferfix": "phpcbf --colors -n --standard=Drupal --extensions=php,module,yml src"
+    "require": {
+        "drupal/vite": "^1.5",
+        "metno/metsis_drupal": "4.x@dev"
+    },
+    "require-dev": {
+        "drush/drush": "^13",
+        "drupal/solo": "^1",
+        "drupal/core-dev": "^10.5 || ^11 || ^11.3"
     }
 }
