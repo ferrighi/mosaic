@@ -6,6 +6,14 @@ mosaic:
   requirements:
     _permission: 'access content'
 
+mosaic.results:
+  path: '/services/mosaic/results'
+  defaults:
+    _controller: '\Drupal\mosaic\Controller\MosaicController::results'
+  requirements:
+    _permission: 'access content'
+  options:
+    _htmx_route: true
 
 metsis.services:
   path: '#'

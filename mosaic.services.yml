@@ -1,0 +1,12 @@
+services:
+  mosaic.search:
+    class: Drupal\mosaic\Service\MosaicSearch
+    arguments:
+      - '@metsis_drupal.solr_query_factory'
+      - '@metsis_drupal.solr_connector_provider'
+      - '@datetime.time'
+      - '@logger.channel.mosaic'
+
+  logger.channel.mosaic:
+    parent: logger.channel_base
+    arguments: ['mosaic']

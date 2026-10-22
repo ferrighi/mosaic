@@ -1,0 +1,42 @@
+<div id="mosaic-results" data-mosaic-results>
+  <form{{ create_attribute(form_attributes).addClass('mosaic__filters') }} action="{{ action }}" method="get" data-hx-indicator="#mosaic-results" data-hx-disabled-elt="button">
+    <input type="hidden" name="submitted" value="1">
+    <fieldset class="mosaic__regions">
+      <legend>{{ 'Region'|t }}</legend>
+      {% set labels = {'svalbard': 'Svalbard'|t, 'north': 'Northern Norway'|t, 'south': 'Southern Norway'|t} %}
+      {% for key, region in regions %}
+        <label><input type="radio" name="region" value="{{ key }}" {% if key == state.region %}checked{% endif %}> {{ labels[key] }}</label>
+      {% endfor %}
+    </fieldset>
+    <div class="mosaic__filter-row">
+      <label>{{ 'Date (UTC)'|t }} <input type="date" name="date" value="{{ state.date }}" max="{{ state.today }}" required></label>
+      <fieldset>
+        <legend>{{ 'Mission'|t }}</legend>
+        {% for mission in ['Sentinel-1', 'Sentinel-2'] %}
+          <label><input type="checkbox" name="missions[]" value="{{ mission }}" {% if mission in state.missions %}checked{% endif %}> {{ mission }}</label>
+        {% endfor %}
+      </fieldset>
+      <fieldset>
+        <legend>{{ 'Satellite (all if none selected)'|t }}</legend>
+        {% for satellite in result.satellites %}
+          <label><input type="checkbox" name="satellites[]" value="{{ satellite }}" {% if satellite in state.satellites %}checked{% endif %}> {{ satellite }}</label>
+        {% endfor %}
+      </fieldset>
+      <button type="submit">{{ 'Update products'|t }}</button>
+    </div>
+  </form>
+  {% if result.error %}
+    <p role="alert">{{ 'The product search is unavailable. Please try again.'|t }}</p>
+  {% elseif result.products is empty %}
+    <p role="status">{{ 'No renderable products match these filters.'|t }}</p>
+  {% else %}
+    <p role="status">{{ '@count products match this search.'|t({'@count': result.total}) }}</p>
+  {% endif %}
+  {% if result.total > 1500 %}
+    <p role="status">{{ 'Only the newest 1500 products are shown. Narrow the filters to see all matching products.'|t }}</p>
+  {% endif %}
+  {% if result.invalid %}
+    <p role="status">{{ '@count products have invalid map metadata and were skipped.'|t({'@count': result.invalid}) }}</p>
+  {% endif %}
+  <script type="application/json" data-mosaic-data>{{ {'state': state, 'products': result.products, 'error': result.error}|json_encode(15)|raw }}</script>
+</div>

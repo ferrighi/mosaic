@@ -65,4 +65,5 @@
     "source.fixAll.eslint": true,
   },
   "cSpell.diagnosticLevel": "Hint",
+  "php.version": "8.4",
 }

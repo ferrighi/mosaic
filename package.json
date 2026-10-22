@@ -1,0 +1,17 @@
+{
+  "name": "mosaic",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "node --test tests/js/*.test.js"
+  },
+  "dependencies": {
+    "ol": "^10.11.0",
+    "proj4": "^2.20.8"
+  },
+  "devDependencies": {
+    "vite": "^8.0.0"
+  }
+}

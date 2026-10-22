@@ -1,64 +1,37 @@
 <?php
 
+/**
+ * @file
+ * Theme integration for the Mosaic feature.
+ */
+
 use Drupal\Core\Routing\RouteMatchInterface;
+
 /**
  * Implements hook_help().
  */
-function mosaic_help($route_name, RouteMatchInterface $route_match)
-{
-    switch ($route_name) {
-    // Main module help for the metsis_search module.
-    /** TODO: Read help from module's README.md */
-    case 'help.page.mosaic':
-      $output = '';
-      $output .= '<h3>' . t('About') . '</h3>';
-      $output .= '<p>' . t('Mosaic Tool') . '</p>';
-      return $output;
-
-    default:
+function mosaic_help($route_name, RouteMatchInterface $route_match): ?string {
+  if ($route_name === 'help.page.mosaic') {
+    return '<p>' . t('Explore active NBS satellite products by region, mission and acquisition time at the Mosaic Tool page.') . '</p>';
   }
+  return NULL;
 }
 
-
-// Implements hook_theme()
-function mosaic_theme( $existing, $type, $theme, $path ){
-  $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
-  switch($language) {
-    case 'nb':
-    return [
-          'mosaic-template' => [
-              'render element' => 'container', // To render a simple container element
-              'template' => 'mosaic_nb', // My template file name
-              'variables' => [
-                  'site_name' => "Default",
-                ],
-          ],
-      ];
-      break;
-    case 'en':
+/**
+ * Implements hook_theme().
+ */
+function mosaic_theme($existing, $type, $theme, $path): array {
   return [
-        'mosaic-template' => [
-            'render element' => 'container', // To render a simple container element
-            'template' => 'mosaic', // My template file name
-            'variables' => [
-                'site_name' => "Default",
-              ],
-        ],
-    ];
-    break;
-  }
-}
-
-// Implements hook_theme()
-function mosaic_nb_theme( $existing, $type, $theme, $path ){
-
-    return [
-          'mosaic-template' => [
-              'render element' => 'container', // To render a simple container element
-              'template' => 'mosaic_nb', // My template file name
-              'variables' => [
-                  'site_name' => "Default",
-                ],
-          ],
-      ];
+    'mosaic' => [
+      'variables' => ['results' => NULL],
+      'template' => 'mosaic',
+    ],
+    'mosaic_results' => [
+      'variables' => [
+        'state' => [], 'result' => [], 'regions' => [],
+        'action' => '', 'form_attributes' => [],
+      ],
+      'template' => 'mosaic-results',
+    ],
+  ];
 }
